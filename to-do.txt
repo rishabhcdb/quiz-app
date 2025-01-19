@@ -1,0 +1,16 @@
+chapter delete warning
+show warning before deleting anything
+Save and next | close in add question
+Make reports page using static data
+secure login
+logout 
+footer on all pages with personal details and desc
+
+
+
+
+
+logo and login page high priority****| done
+delete quiz with its questions | done
+find color pallette | done
+ER diagram for admin | done

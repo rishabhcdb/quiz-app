@@ -1,0 +1,29 @@
+1) create database tables
+2) users- when user registers: create entry
+
+//Users
+1. func registerUser(userName: String, password: String, fullName: String) -> Bool { } //Is registered successfully
+2. func loginUser(userName: String, password: String) -> Int {} // It returns userId
+3. func getProfile(userId: Int) -> JSON {} // User Details -> like fullName
+
+
+//Subjects
+1. func createSubject(name: String, description: String) -> Bool {}
+2. func getAllSubjects() -> [Array OF Json's] {}
+3. func addNewChapter(chapterId: Int) -> Bool {}
+4. func deleteASubject(subjectId: Int) -> Bool {}
+5. func deleteAChapter(subjectId: Int, chapterId: Int) -> Bool {}
+
+//Chapters
+1. func createChapter(name: String, description: String) -> Bool {}
+2. func addNewQuiz(quizId: Int) -> Bool {} // TO:DO
+
+
+// Quizzes
+1. func createAQuiz(chaptedId: Int, date: String, duration: Int) -> Bool {}
+2. func addAQuestion(questionId: Int) -> Bool {}
+
+
+// Questions
+1. func createANewQuestion(chapterId: Int, questionTitle: String, statement: String, options: [String], correctOption: Int) -> Int {} // returns QuestionId
+2. func deleteAQuestion(questionId: Int) -> Bool {}

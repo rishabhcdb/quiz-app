@@ -1,0 +1,6 @@
+Flask: The main web framework.
+Flask-SQLAlchemy: For working with SQLite using ORM (Object Relational Mapping).
+Flask-Login: For handling user sessions and authentication.
+Flask-WTF: For better form handling and validation.
+Flask-Bcrypt: For password hashing and secure storage.
+Flask-Migrate (optional): For database migrations, if needed in the future.

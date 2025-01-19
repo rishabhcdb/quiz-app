@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {%include 'navbar.html'%}
+    <div class="container mt-5">
+        <!-- Subject Information -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <h3 class="card-title">Subject Details</h3>
+                <p><strong>Subject ID:</strong> {{ subject_id }}</p>
+                <!-- Add other subject details here -->
+                <p><strong>Subject Name:</strong> {{ subject.name }}</p>
+                <p><strong>Description:</strong> {{ subject.description }}</p>
+            </div>
+        </div>
+
+
+        
+</body>
+</html>

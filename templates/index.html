@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    {%include 'navbar.html'%}
+    
+    <form action = "/register" method = "POST">
+        <div class = "form-group">
+            <h3>User Name</h3>
+            <input
+             type="text"
+             name="userName"
+             placeholder = "Enter valid email-id"
+            
+            />
+        </div>
+
+        <div class = "form-group">
+            <h3>password</h3>
+            <input
+             type="password"
+             name="password"
+             placeholder = "Enter password"
+            
+            />
+        </div>
+
+        <div class = "form-group">
+            <h3>Full name</h3>
+            <input
+             type="text"
+             name="fullName"
+             placeholder = "Enter full name"
+            
+            />
+        </div>
+
+        <input type="submit" value="submit" class = "btn"/>
+    </form>
+    <div class = "form-group">
+
+    </div>
+</body>
+</html>

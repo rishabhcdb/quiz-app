@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 350px;
+            position: relative;
+            margin-top: -12.5%;
+        }
+
+        .form-container {
+            background: linear-gradient(135deg, #ffffff, #e8eeff);
+            padding: 40px;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 400px;
+            margin: 20px auto;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid #d3defa;
+        }
+
+        .form-image {
+            max-width: 450px;
+            width: 100%;
+            height: auto;
+            opacity: 0.98;
+            transform: scaleX(-1);
+            margin-top: 7%;
+        }
+
+        .form-title {
+            color: #4a4f5c;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a4f5c;
+            font-weight: bold;
+        }
+
+        .form-wrapper {
+            flex: 1;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d5d9e2;
+            border-radius: 10px;
+            font-size: 14px;
+            box-sizing: border-box;
+            background: white;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #d3defa;
+            box-shadow: 0 0 5px rgba(211, 222, 250, 0.5);
+        }
+
+        input::placeholder {
+            color: #9ba0ad;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #d3defa, #b8c5f2);
+            color: #4a4f5c;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #b8c5f2, #a3b2eb);
+        }
+
+        .alert {
+            background: #ffe6e6;
+            border: 1px solid #ffcccc;
+            color: #cc0000;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .form-container {
+                margin: 40px auto;
+                padding: 20px;
+            }
+        }
+
+        .page-title {
+            color: rgb(2, 34, 61);
+            font-weight: 600;
+            font-size: 45px;
+            margin-left: 14%;
+        }
+
+        .page-subtitle {
+            color: rgb(2, 34, 61);
+            font-weight: 600;
+            font-size: 75px;
+            margin-top: -32px;
+            margin-left: 15%;
+        }
+    </style>
+    <title>Login</title>
+</head>
+<body class='page_look font_family_poppins'>
+    {%include 'navbar.html'%}
+    <h1 style="color: rgb(2, 34, 61); font-weight: 600;font-size:45px;margin-left:14%">Supercharge your</h1>
+    <h1 style="color: rgb(2, 34, 61); font-weight: 600;font-size: 75px; margin-top: -32px;margin-left: 15%;">Exam-Prep</h1>
+
+    <div class="container">
+        <img src="{{ url_for('static', filename='images/Student_2.png') }}" alt="Student studying" class="form-image" style="margin-top:110px;">
+        <div class="form-wrapper">
+            <form action="/login" method="POST" class="form-container">
+                <h2 class="form-title">Login to Account</h2>
+                
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <div class="input-container">
+                        <input
+                            type="text"
+                            id="email"
+                            name="userName"
+                            placeholder="Enter your email"
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-container">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter password"
+                            required
+                        />
+                    </div>
+                </div>
+
+                {% if error %}
+                <div class="alert">
+                    {{ error }}
+                </div>
+                {% endif %}
+
+                <button type="submit" class="submit-btn">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

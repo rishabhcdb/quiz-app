@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+
+<body class='page_look font_family_poppins'>
+
+    {%include 'navbar.html'%}
+    <a href="{{ url_for('logout') }}" style="text-decoration: none; margin-left:85%;">
+        <button type="button"
+            style="padding: 10px 20px; font-size: 16px; color: white; background-color: #d9534f; border: none; border-radius: 5px; cursor: pointer;">
+            Logout
+        </button>
+    </a>
+    <h1 style="margin-top: -30px;font-size: 45px; text-align: center; color: #020d2c; font-family: 'Poppins', sans-serif;">Hello admin, time to test students</h1>
+    <div style="display: flex; margin-top:50px;">
+        <h4 style="margin-left: 35px;font-family: 'Poppins', sans-serif; color:#010b25; font-size: 22px; margin-top: 11px;">Available Subjects</h4>
+        <a href="/admin/subjects/new">
+            <button type="button"
+                style="background-color: #010b25; color: rgb(239, 239, 239); border: none; margin-left: 1060px; padding: 10px 15px; font-size: 16px; border-radius: 30px; ">
+                + Add a subject
+            </button>
+        </a>
+    </div>
+    <div class="card-container" style="display: flex; flex-wrap: wrap; justify-content: center; margin-left: 25px;">
+
+        {% for item in arr_items %}
+        <div class="card"
+            style="width: 40%;min-height: 280px; background-color: #7f9ced94; padding: 25px 35px; border-radius: 25px;border: 0; box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.0); text-align: center; margin-top:0px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; ">
+                <a href="{{ url_for('chapters_list', subject_id=item.subject.id) }}"
+                    class="card-link"><!--click on card-->
+                    <h3  style="text-align:center;font-size: 24px; color:#010b25; margin: 0px; line-height: 1px; font-weight: 500;">{{item.subject.name}}</h3>
+                    <a href="{{ url_for('render_addchapter', subject_id=item.subject.id)}}"
+                        style="background-color: #3D52A0; padding-top:3px;color: rgb(196, 196, 196); border: none; width:30px;height:30px; border-radius: 15px;margin-right: 25px; cursor: pointer;text-decoration: none;">
+                        +
+                    </a>
+            </div>
+            <a href="{{ url_for('chapters_list', subject_id=item.subject.id) }}" class="card-link"><!--click on card-->
+                <div
+                    style="display: flex; justify-content: space-between; margin-top: 20px; align-items: center; font-size: 16px;font-weight: 500; color: #303030;">
+                    <span style="flex: 1; text-align: left;">Chapter name </span>
+                    <span style="flex: 0; text-align: center; margin-left: -15px; margin-right: 25px;">|</span>
+                    <span style="flex: 1; text-align: center;margin-right: 35px;">No. of questions</span>
+                    <span style="flex: 0; text-align: center; margin-right: -80px">|</span>
+                    <span style="flex: 1; text-align: right; padding-right: 30px">Action</span>
+                </div>
+                <!-- Display Chapters -->
+                {% if item.chapters %}
+                <ul style="text-align: left; padding-left: 10px; margin-top: 12px;">
+                    {% for chapter in item.chapters %}
+                    <li
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: white;">
+                        <span style="flex: 1; color: #000514;">{{ chapter.name }}</span>
+                        <form method="POST" action="{{ url_for('delete_chapter', chapter_id=chapter.id) }}">
+                            <button type="submit" class="delete-button"
+                                style="background:none; border:none; margin-right: 25px; cursor: pointer;">
+                                Del
+                            </button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>No chapters available</p>
+                {% endif %}
+
+
+                <form method="POST" action="{{ url_for('delete_subject', subject_id=item.subject.id) }}">
+                    <button type="submit" class="delete-button"
+                        style="margin-top: 10px; padding: 10px 30px; background-color: rgb(64, 81, 122); color: rgb(211, 211, 211); border: none; border-radius: 20px; cursor: pointer;">
+                        Delete
+                    </button>
+                </form>
+                <!-- Add Button -->
+        </div>
+        {% endfor %}
+        </a>
+    </div>
+    {% for subject in subjects %}
+    <div class="card"
+        style="width: 300px; padding: 20px; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
+        <h3 style="font-size: 24px;">{{ subject.name }}</h3>
+        <p style="font-size: 16px;">{{ subject.description }}</p>
+        <form method="POST" action="{{ url_for('delete_subject', subject_id=subject.id) }}">
+            <button type="submit" class="delete-button"
+                style="margin-top: 10px; padding: 10px 20px; background-color: #b3cc23; color: white; border: none; border-radius: 25px; cursor: pointer;">
+                Delete Subject
+            </button>
+            <input type="hidden" name="_method" value="DELETE"> <!-- Simulating DELETE method -->
+
+            <a href="http://127.0.0.1:5000/admin/subjects/new"
+                style="width: 20px; margin-top: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 25px; font-size: 16px;">
+                addd
+            </a>
+    </div>
+    </div>
+    {% endfor %}
+</body>
+</html>

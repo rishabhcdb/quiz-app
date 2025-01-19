@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Subject Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+            
+        }
+        .quiz-section {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            flex-wrap: nowrap;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+        .chapter-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        .quiz-container {
+            display: flex; /* Enables horizontal alignment */
+            gap: 20px; /* Adds spacing between cards */
+            flex-wrap: wrap; /* Allows wrapping if cards exceed the container width */
+            justify-content: center; /* Centers the cards horizontally */
+            align-items: flex-start; /* Aligns cards to the top of the container */
+            
+        }
+
+        .quiz-card {
+            
+            padding: 15px;
+            width: 200px; /* Adjust card width */            
+            text-align: center; /* Centers content inside each card */
+            flex: 0 0 auto; /* Prevents cards from stretching */
+        }
+        .quiz-card h4 {
+            margin: 0 0 10px;
+            font-size: 16px;
+        }
+        .quiz-card p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .add-quiz-button {
+            display: inline-block;
+            margin: 30px auto;
+            margin-top: 60px;
+            padding: 10px 20px;
+            background-color: #307cee;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+        }
+        .add-quiz-button:hover {
+            margin-top: 60px;
+            background-color: #4276ca;
+        }
+        .add-question-button{ 
+            text-decoration: none;          
+            margin: 5px;
+            background-color: #307cee;
+            color: white;
+            border-radius: 25px;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+  {%include 'navbar.html'%}
+   <!-- Chapters and Quizzes -->
+    <div style="display: flex; gap: 30px; margin-top: 50px;">
+    {% if quizzes %}
+        {% for chapter_id, chapter_quizzes in quizzes|groupby('chapter_id') %}
+        <div class="quiz-section" style= "width: 250px;">
+            <div class="chapter-title">Chapter {{ chapter_id }} Quiz</div>
+            <div class="quiz-container" style="gap: 20px; flex-wrap: wrap; justify-content: center; align-items: flex-start;">
+                {% for quiz in chapter_quizzes %}
+                
+                <div class="quiz-card">
+                    <h4 style = "font-weight: bold;">{{ quiz.remarks }}</h4>
+                    <p style="color: #888888;">Date: {{ quiz.date_of_quiz }}</p>
+                    <p>Duration: {{ quiz.time_duration }} mins</p>
+                </div>
+                <a href="{{ url_for('add_questions', subject_id=subject.id, qz_id = quiz.id) }}" class="add-question-button">+question</a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p>No Quizzes available for this subject.</p>
+    {% endif %}
+    </div>
+    <!-- Add Quiz Button -->
+    <a href="{{ url_for('create_quiz', subject_id=subject.id, chapter_id = chapter_id) }}" class="add-quiz-button">+ Add Quiz</a>
+</body>
+</html>

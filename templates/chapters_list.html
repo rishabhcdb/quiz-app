@@ -14,12 +14,6 @@
 </head>
 
 <body class = 'page_look'>
-
-    <style>
-        
-        
-
-    </style>
     {%include 'navbar.html'%}
     <div>
         <h1 style="text-align: left;margin-left: 10.7%; margin-top: 0px;color: #020d2c;font-weight: 600; font-family: 'Poppins', sans-serif;">List of Chapters in {{ subject.name }}</h1>
@@ -34,12 +28,21 @@
                     <form method="POST" action="{{ url_for('delete_chapter', chapter_id=item.chapter.id) }}">
                      <!--   <button type="submit" class="remove-btn">Remove Chapter</button> -->
                     </form>
+
+                    <a href="{{ url_for('redirect_edit_chapter', chapter_id = item.chapter.id) }}">
+                        <button type="button" style="margin-right:770px;margin-bottom:7px;color: rgb(191, 191, 191);background: none; border: none;font-size: 14px;">                           
+                            (Edit Chapter)
+                        </button>
+                    </a>
                     <!-- Add Quiz Button -->
                     <a href="{{ url_for('create_quiz', subject_id=subject.id, chapter_id = item.chapter.id) }}">
                         <button type="button" class="add-quiz-btn">                           
                             + Add a Quiz
                         </button>
                     </a>
+
+
+                    
                 </div>
 
                 <!-- Display Quizzes for Each Chapter -->
@@ -53,6 +56,11 @@
                             <p>Date: {{ quiz.date_of_quiz }}</p>
                             <p>Duration: {{ quiz.time_duration }} mins</p>
                             <p>Subject ID: {{ quiz.subject_id }}</p>                            
+                            </a>
+                            <a href="{{ url_for('redirect_edit_quiz', subject_id=subject.id, chapter_id=item.chapter.id, quiz_id=quiz.id) }}">
+                                <button type="button" style="background-color: #c0c0c0; margin-top: 10px; color: rgb(0, 0, 0); border: none; font-size: 15px; padding: 5px 10px; border-radius: 35px; cursor: pointer;">
+                                    Edit Quiz
+                                </button>
                             </a>
                             <form action="{{ url_for('delete_quiz', subject_id=subject.id, chapter_id=item.chapter.id, quiz_id=quiz.id) }}" method="POST" >
                                 <button type="submit" style="background-color: #c0c0c0;margin-top: 10px; color: rgb(0, 0, 0);border: none; font-size: 15px; padding: 5px 10px; border-radius: 35px; cursor: pointer;">

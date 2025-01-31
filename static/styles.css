@@ -164,7 +164,7 @@ becef6
 
 .chapter-card {
     border: 0px solid #ddd;
-    background-color: rgb(33, 33, 33);
+    background-color: #03091edd;
     border-radius: 10px;
     padding: 25px;
     margin: 50px 0;
@@ -222,16 +222,17 @@ becef6
 }
 
 .quiz-card {
+    background-color: #03091ed8;
     margin: 0;
-    border: 2px solid rgb(151, 151, 151);
     border-radius: 25px;
-    padding: 20px;
+    padding: 40px;
+
 }
 
 .quiz-container {
     display: flex;
     gap: 50px;
-    background-color: rgb(33, 33, 33);
+    background-color: rgb(33, 33, 33, 0.0);
     border-color: black;
     padding: 5px, 5px;
     margin-top: 20px;
@@ -323,7 +324,8 @@ becef6
 
 label {
     display: block;
-    margin-bottom: 8px;
+    margin-top: 15px;
+    margin-bottom: 7px;
     color: #4a4f5c;
     font-weight: bold;
 }
@@ -333,7 +335,7 @@ label {
 input {
     width: 100%;
     padding: 12px;
-    border: 2px solid #000a22;
+    border: 2px solid #b5c6f0;
     border-radius: 10px;
     font-size: 14px;
     box-sizing: border-box;
@@ -350,8 +352,8 @@ input::placeholder {
     color: #9ba0ad;
 }
 
-.submit-btn {
-    width: 100%;
+.submit-button {
+    width: 40%;
     padding: 12px;
     background: linear-gradient(135deg, #d3defa, #b8c5f2);
     color: #4a4f5c;
@@ -360,7 +362,9 @@ input::placeholder {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
+    margin: 0 auto;
+    display: block;
+    
 }
 
 .submit-btn:hover {
@@ -377,9 +381,145 @@ input::placeholder {
     font-size: 14px;
 }
 
+
+.details-container {
+    background: linear-gradient(135deg, #ffffff, #e8eeff);
+    padding: 40px;
+    border-radius: 25px;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d3defa;
+}
+.dropdown {
+    width: 30%; /* Full width */
+    max-width: 320px; /* Limit the maximum width */
+    padding: 10px 12px;
+    font-size: 16px;
+    border: 1px solid #b8c5f2;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #edf1fa, #d3defa); /* Gradient background */
+    color: #4a4f5c;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+}
+
+/* Hover and focus effects */
+.dropdown:hover, .styled-dropdown:focus {
+    border-color: #8fa9e6;
+    background: linear-gradient(135deg, #d3defa, #b8c5f2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Dropdown options styling */
+.dropdown option {
+    font-size: 16px;
+    padding: 8px;
+    background: #ffffff; /* Background for dropdown options */
+    color: #4a4f5c;
+}
+
 @media (max-width: 480px) {
     .form-container {
         margin: 40px auto;
         padding: 20px;
     }
 }
+
+
+
+
+
+.site-footer {
+    background: linear-gradient(180deg, #b5c9f3, #8fa9e6); /* A darker gradient for the footer */
+    color: #ffffff; /* White text for contrast */
+    padding: 25px 15px;
+    text-align: center;
+    
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0); /* A more prominent shadow */
+    margin-top: 150px; /* Increased margin above the footer */
+}
+
+.footer-content p {
+    margin: 8px 0; /* Increase spacing between lines */
+    font-weight: 500; /* Make text slightly bolder */
+}
+
+.footer-content a {
+    color: #ffffff; /* Golden accent color for links */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-content a:hover {
+    color: #ffffff; /* White on hover for better contrast */
+    text-decoration: underline;
+}
+
+.site-footer p:last-child {
+    margin-top: 15px; /* Separate the link more */
+    font-size: 14px;
+    color: #e6eaff; /* Slightly muted color for smaller text */
+}
+
+
+
+
+
+.sd-container {
+    background: linear-gradient(180deg, #eff3ff, #c3d1f7);
+    padding: 25px;
+    border-radius: 25px;
+    max-width: 320px;
+    margin: 80px auto;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #d3defa;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.5s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Transition properties specified individually */
+}
+
+.sd-container:hover {
+    background: linear-gradient(0deg, #c3d1f7, #e8eeff); /* Gradient color change on hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Slightly larger box-shadow */
+    border-color: #b9c9f5; /* Change border color on hover */
+}
+
+
+
+
+.sd-container h2 {
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #03103b;
+}
+
+.sd-title {
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #020d2c;
+}
+
+.sd-subtitle {
+    font-size: 15px;
+    font-weight: 50;
+    margin-bottom: 10px;
+    color: #4a4a4a;
+}
+
+.sd-subtitle .highlight {
+    font-weight: 500; /* Slightly bolder font */
+    color: #5c5c5c; /* Slightly gray color for contrast */
+}
+
+

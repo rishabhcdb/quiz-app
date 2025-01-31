@@ -11,25 +11,44 @@
     <title>Create a Chapter</title>
 </head>
 <body class='page_look font_family_poppins'>
-    
     <div class="form-container" style="margin-top: 12%;">
-        <h1>Create a New Chapter</h1>
-        <form method="POST" action="{{url_for('add_chapters', subject_id = subject_id)}}">
+        {% if is_editing %}
+        <h1>Edit the Chapter</h1>
+        <form method="POST" action="{{url_for('update_chapter', chapter_id=chapter.id)}}">
             <div>
                 <label for="name">Chapter Name:</label>
-                <input type="text" id="s_name" name="name" placeholder="Enter subject name" required>
+                <input type="text" id="s_name" name="name" value="{{ chapter.name }}" required>
             </div>
             
             <div>
                 <label for="description">Description:</label>
-                <textarea id="description" name="description" placeholder="Enter subject description" required></textarea>
+                <input id="description" name="description" value="{{ chapter.description }}" required>
             </div>
             
             <div>
-                <button type="submit">Add Chapter</button>
+                <button type="submit" class="submit-button" style="margin-top: 40px;">Update Chapter</button>
             </div>
         </form>
+        {% else %}
+        <h1>Create a New Chapter</h1>
+        <form method="POST" action="{{url_for('add_chapters', subject_id=subject_id)}}">
+            <div>
+                <label for="name">Chapter Name:</label>
+                <input type="text" id="s_name" name="name" placeholder="Enter chapter name" required>
+            </div>
+            
+            <div>
+                <label for="description">Description:</label>
+                <input id="description" name="description" placeholder="Enter chapter description" required>
+            </div>
+            
+            <div>
+                <button type="submit" class="submit-button" style="margin-top: 40px;">Add Chapter</button>
+            </div>
+        </form>
+        {% endif %}
     </div>
 </body>
+
 </html>
 

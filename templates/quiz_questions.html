@@ -35,9 +35,10 @@
             background-color: #232323;
             border: 0px solid #ddd;
             border-radius: 8px;
-            padding: 15px;
+            padding: 35px;
             margin-bottom: 15px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            
         }
 
         .question-card h4 {
@@ -48,8 +49,8 @@
 
         .question-card p {
             margin: 0 0 10px 0;
-            color: rgb(173, 173, 173);
-            font-weight: bold;
+            color: rgb(153, 149, 149);
+            font-weight: 550;
         }
 
         .question-card ul {
@@ -63,16 +64,11 @@
         }
 
         .add-quiz-btn {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            /* Position horizontally at the middle of the screen */
-            transform: translateX(-50%);
-            /* Adjust for the button width */
             background-color: #2f4e9d;
+            
             color: white;
             border: none;
-            padding: 15px 25px;
+            padding: 10px 15px;
             font-size: 16px;
             border-radius: 25px;
             cursor: pointer;
@@ -89,13 +85,24 @@
 <body class="page_look">
 
     {% include 'navbar.html' %}
-
-    <h1 style="margin-top: 5px; color: #020d2c;font-weight: 600;">Questions in Quiz</h1>
-
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 5px; position: relative;">
+        <h1 style="margin: 0; color: #020d2c; font-weight: 600; text-align: center;">
+            Questions in Quiz
+        </h1>
+        <a href="{{ url_for('add_questions', subject_id=subject_id, qz_id=q_id) }}" style="position: absolute; right: 10%; top: 50%; transform: translateY(-50%);">
+            <button type="button" class="add-quiz-btn" style="font-weight: 400; font-size: 15px;">
+                + Question
+            </button>
+        </a>
+    </div>
+    
+    
     {% if questions %}
     <ul class="question-list">
         {% for question in questions %}
 <li class="question-card">
+    <!-- Form for deleting the question -->
+    
     <h4>Q. {{ question.question_text }}</h4>
     <ul>
         <li>{{ question.option1 }}</li>
@@ -105,14 +112,14 @@
     </ul>
     <p>Correct Answer: {{ question.correct_option }}</p>
 
-    <!-- Form for deleting the question -->
-    <form method="POST" 
-          action="{{ url_for('delete_question', subject_id=subject_id, qz_id=q_id, ques_id=question.ques_id) }}">
-        <button type="submit" class="delete-button"
-            style="background-color: #7a7a7a; color: white; border: none; border-radius: 15px; padding: 5px 10px; margin-top: 10px; cursor: pointer;">
-            -
+    
+    <a href="{{ url_for('redirect_edit_question', quiz_id=q_id, ques_id=question.ques_id) }}">
+        <button type="button" style="background-color: #c0c0c0; margin-top: 10px; color: rgb(0, 0, 0); border: none; font-size: 15px; padding: 5px 10px; border-radius: 35px; cursor: pointer;">
+            Edit Question
         </button>
-    </form>
+    </a>
+    
+    
 </li>
 {% endfor %}
 
@@ -121,11 +128,7 @@
     <p style="color: #1a233a; text-align: center; margin-top: 25px;">No questions available for this quiz.</p>
     {% endif %}
 
-    <a href="{{ url_for('add_questions', subject_id=subject_id, qz_id=q_id) }}">
-        <button type="button" class="add-quiz-btn">
-            + Add a question to this Quiz
-        </button>
-    </a>
+    
 </body>
 
 </html>

@@ -7,7 +7,7 @@
     padding: 0;
 }
 
-becef6
+
 
 .color-schemere{
     color: #3D52A0;
@@ -21,7 +21,22 @@ becef6
     font-family: 'Poppins', sans-serif;
     
 }
+.save-nxt-btn {
+    width: 30%;
+    padding: 12px;
+    background: linear-gradient(135deg, #becdf5, #b8c5f2);
+    color: #4a4f5c;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}
 
+.save-nxt-btn:hover {
+    background: linear-gradient(135deg, #6e7fbb, #9badf7);
+}
 
 .card-container {
     display: flex;

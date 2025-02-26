@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,13 +8,168 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+        rel="stylesheet">
 </head>
+<style>
+    h1 {
+        margin-top: 50px;
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .question-list {
+        width: 50%;
+        margin: 20px auto;
+        padding: 0;
+        list-style-type: none;
+        margin-top: 50px;
+    }
+
+    .question-card {
+        background-color: #232323;
+        border: 0px solid #ddd;
+        border-radius: 8px;
+        padding: 35px;
+        margin-bottom: 15px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+    }
+
+    .question-card h4 {
+        margin: 0 0 10px 0;
+        color: rgb(173, 173, 173);
+        font-weight: bold;
+    }
+
+    .question-card p {
+        margin: 0 0 10px 0;
+        color: rgb(153, 149, 149);
+        font-weight: 550;
+    }
+
+    .question-card ul {
+        padding-left: 20px;
+    }
+
+    .question-card li {
+        margin-bottom: 5px;
+        color: rgb(173, 173, 173);
+
+    }
+
+    .add-quiz-btn {
+        background-color: #2f4e9d;
+
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 16px;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+
+    .add-quiz-btn:hover {
+        background-color: #1a53c1;
+    }
+
+    .quiz-heading {
+        text-align: center;
+        font-weight: 600;
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    .instructions-heading {
+        text-align: center;
+        font-weight: 500;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .instructions-container {
+        width: 60%;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+    }
+
+    .instruction-section {
+        margin-bottom: 15px;
+    }
+
+    .instruction-section h4 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .instruction-section ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+
+    .instruction-section li {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+</style>
 
 <body class='page_look font_family_poppins'>
 
     {% include 'navbar.html' %}
-    <h1>You are about to start the quiz</h1>
-    
+    <h2 class="quiz-heading">You are about to start the {{ quiz.remarks }} quiz</h2>
+    <h3 class="instructions-heading">Quiz Instructions</h3>
+    <div class="instructions-container">
+        <div class="instruction-section">
+            <h4>📌 General Guidelines</h4>
+            <ul>
+                <li>Read all questions carefully before selecting an answer.</li>
+                <li>Each question has only one correct answer—choose wisely.</li>
+                <li>You cannot skip a question—you must select an answer to proceed.</li>
+                <li>Once you submit an answer, you cannot change it later.</li>
+                <li>Make sure to complete the quiz within the given time limit.</li>
+            </ul>
+        </div>
+
+        <div class="instruction-section">
+            <h4>📊 Scoring System</h4>
+            <ul>
+                <li>Each correct answer awards you a certain number of points.</li>
+                <li>No negative marking for incorrect answers (unless specified).</li>
+                <li>Your final score percentage will be displayed after completing the quiz.</li>
+            </ul>
+        </div>
+
+        <div class="instruction-section">
+            <h4>⚠️ Important Notes</h4>
+            <ul>
+                <li>Do not refresh or close the page while attempting the quiz.</li>
+                <li>If you exit the quiz, your progress may not be saved.</li>
+                <li>Ensure a stable internet connection to avoid disruptions.</li>
+                <li>Good luck, and do your best! 🎯</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <a href="{{ url_for('quiz_attempt', quiz_id = quiz.id) }}">
+        <button type="button"
+            style="padding: 7px; width: 85px; background-color: rgb(64, 81, 122); color: rgb(211, 211, 211); border: none; border-radius: 35px; cursor: pointer;margin-top: 10px;">
+            Start </button>
+    </a>
+    </div>
 </body>
+
+</html>
+
+</body>
+
 </html>

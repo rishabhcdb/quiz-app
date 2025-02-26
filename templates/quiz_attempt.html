@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Attempt</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Montserrat:wght@100..900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <script>
+        let timeLeft = parseInt("{{ remaining_time }}", 10) || 0;
+
+        function updateTimer() {
+            if (timeLeft <= 0) {
+                document.getElementById("timer").innerHTML = "Time's Up!";
+                document.getElementById("quizForm").submit(); // Auto-submit form when time is up
+                return;
+            }
+
+            let minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            document.getElementById("timer").innerHTML = `Time Left: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+            timeLeft--;
+
+            setTimeout(updateTimer, 1000);
+        }
+
+        window.onload = updateTimer;
+    </script>
+</head>
+<body class='page_look font_family_poppins'>
+
+    <h1 style="text-align: center; margin-top: 50px;">{{quiz.remarks}} quiz</h1>
+    <h1 style="text-align: center; margin-top: 10px;">Question {{ current_index + 1 }} of {{ total_questions }}</h1>
+    
+    <!-- Timer Display -->
+    <h2 style="text-align: center; color: rgb(0, 48, 72);" id="timer"></h2>
+
+    <div style="width: 50%; margin: auto;">
+        <legend><strong>{{ arr_attempt[current_index].question.question_text }}</strong></legend>
+
+        <form method="POST" id="quizForm">
+            <div style="margin-top: 20px;">
+                <input type="radio" id="option1" name="selected_option" value="option1" required>
+                <label for="option1">{{ arr_attempt[current_index].question.option1 }}</label>
+            </div>
+
+            <div>
+                <input type="radio" id="option2" name="selected_option" value="option2" required>
+                <label for="option2">{{ arr_attempt[current_index].question.option2 }}</label>
+            </div>
+
+            <div>
+                <input type="radio" id="option3" name="selected_option" value="option3" required>
+                <label for="option3">{{ arr_attempt[current_index].question.option3 }}</label>
+            </div>
+
+            <div>
+                <input type="radio" id="option4" name="selected_option" value="option4" required>
+                <label for="option4">{{ arr_attempt[current_index].question.option4 }}</label>
+            </div>
+
+            <button type="submit" class="save-nxt-btn" style="margin-top: 20px;">Save and Next</button>
+        </form>
+    </div>
+
+</body>
+</html>

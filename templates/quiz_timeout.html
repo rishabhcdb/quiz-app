@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Timeout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class='page_look font_family_poppins'>
+
+    <h1 style="text-align: center; margin-top: 50px; color: red;">Time's Up!</h1>
+    <h2 style="text-align: center;">Your Score: {{ score_percentage }}%</h2>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('student_dashboard.student_dashboard') }}" style="padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;">Go to Dashboard</a>
+    </div>
+
+</body>
+</html>

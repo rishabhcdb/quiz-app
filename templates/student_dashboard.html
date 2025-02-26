@@ -14,6 +14,7 @@
 
 <body class='page_look font_family_poppins'>
     {% include 'navbar_sd.html' %}
+
     <h1 style="text-align: center;">Hello {{ userName }}, let's prepare!</h1>
     <h4 style="text-align: center;">Available Quizzes</h4>
     <div style="height: 50vh; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px;">
@@ -27,7 +28,7 @@
                 <button style="margin-top: 20px;font-size: 14px; padding: 10px 15px; background-color: rgb(64, 81, 122); color: rgb(211, 211, 211); border: none; border-radius: 35px;">View Details</button>
             </a>
 
-            <a href="{{ url_for('start_quiz_prev') }}">
+            <a href="{{ url_for('start_quiz_prev',  quiz_id=quiz.id) }}">
                 <button style="margin-top: 20px;font-size: 14px; padding: 10px 15px; background-color: rgb(64, 81, 122); color: rgb(211, 211, 211); border: none; border-radius: 35px;">Start Quiz</button>
             </a>
         </div>

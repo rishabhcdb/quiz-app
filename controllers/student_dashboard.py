@@ -18,7 +18,7 @@ def student_dashboard():
         if user:
             # Step 3: Pass the user's name and quizzes to the template
             quizzes = Quiz.query.all()
-            return render_template('student_dashboard.html', quizzes=quizzes, userName=user.fullName)
+            return render_template('student_dashboard.html', quizzes=quizzes, userName=user.fullName, userId=user.userId)
         else:
             return "User not found", 404
     else:

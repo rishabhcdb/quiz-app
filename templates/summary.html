@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .chart-container {
+            width: 500px;  /* Adjust width */
+            height: 300px; /* Adjust height */
+            margin: 20px auto; /* Center the charts */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h2 style="text-align: center;">📊 Top Scores in Each Subject</h2>
+    <div class="chart-container">
+        <canvas id="topScoresChart"></canvas>
+    </div>
+
+    <h2 style="text-align: center;">📈 Subject-Wise Quiz Attempts</h2>
+    <div class="chart-container">
+        <canvas id="subjectChart"></canvas>
+    </div>
+
+    <script>
+        // Data for top scores
+        var topSubjects = {{ top_scores | map(attribute=0) | list | tojson | safe }};
+        var topMarks = {{ top_scores | map(attribute=1) | list | tojson | safe }};
+
+        var ctx1 = document.getElementById('topScoresChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: topSubjects,
+                datasets: [{
+                    label: 'Top Score (Max: 100)',
+                    data: topMarks,
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                },
+                plugins: {
+                    legend: { display: false } // Hide legend for compact view
+                }
+            }
+        });
+
+        // Data for subject-wise quiz attempts
+        var subjectNames = {{ subject_attempts | map(attribute=0) | list | tojson | safe }};
+        var attemptCounts = {{ subject_attempts | map(attribute=1) | list | tojson | safe }};
+
+        var ctx2 = document.getElementById('subjectChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: subjectNames,
+                datasets: [{
+                    label: 'Quiz Attempts',
+                    data: attemptCounts,
+                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

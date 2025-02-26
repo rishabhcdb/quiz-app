@@ -1,0 +1,37 @@
+A login/register form with fields like username, password etc. for user and admin login
+
+Admin Dashboard - for the Admin:
+The admin should be added, whenever a new database is created (done)
+The admin creates/edits/deletes a subject (done)
+The admin creates/edits/deletes a chapter under the subject (done)
+The admin will create a new quiz under a chapter (done)
+Each quiz contains a set of questions (MCQ - only one option correct) (done)
+The admin can search the users/subjects/quizzes  
+Shows the summary charts
+
+Quiz management - for the Admin:
+Edit/delete a quiz (done)
+The admin specifies the date and duration(HH: MM) of the quiz (done)
+The admin creates/edits/deletes the MCQ (only one option correct) questions inside the specific quiz (done, to confirm)
+
+
+User dashboard - for the User:
+The user can attempt any quiz of his/her interest
+Every quiz has a timer (timer is optional)
+Each quiz score is recorded
+The earlier quiz attempts are shown
+Shows the summary charts
+
+
+
+Recommended Functionalities:
+API resources are created to interact with the subjects, chapters and/or quizzes. (Please note: you can choose which API resources to make from the given ones, It is NOT mandatory to create API resources for CRUD of all the components)
+APIs can either be created by returning JSON from a controller or using a flask extension like flask_restful
+External APIs/libraries for creating charts, e.g. Chart JS
+Implementing frontend validation on all the form fields using HTML5 form validation or JavaScript
+Implement backend validation within your app's controllers.
+
+Optional Functionalities:
+Provide styling and aesthetics to your application by creating a beautiful and responsive front end using simple CSS or Bootstrap (done)
+Incorporate a proper login system to prevent unauthorized access to the app using Flask extensions like flask_login, flask_security etc
+Any additional feature you feel is appropriate for the application

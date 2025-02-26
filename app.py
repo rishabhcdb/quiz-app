@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for, flash, session
 from datetime import datetime
-from models.models import db, Users, Subjects, Chapter, Quiz, Question # Importing db and Users from models
+from models.models import db, Users, Subjects, Chapter, Quiz, Question, Score # Importing db and Users from models
 from functools import wraps
+import time
+
 
 from controllers.login import login_bp
 from controllers.student_dashboard import student_dashboard_bp
@@ -44,9 +46,165 @@ def admin_dashboard():
     return render_template('admin_dashboard.html', arr_items=subjects_with_chapters)
 
 
-@app.route('/student/start_quiz_prev')
-def start_quiz_prev():
-    return render_template('start_quiz_prev.html')
+@app.route('/student/performance')
+def student_performance():
+    user_id = session.get('user_id')  # Get logged-in student's ID
+    
+    if not user_id:
+        return redirect(url_for('login'))  # Redirect to login if user not found
+
+    # Fetch scores for the logged-in student
+    scores = Score.query.filter_by(userId=user_id).all()
+
+    # Fetch quiz names using qz_id
+    quiz_names = [Quiz.query.get(score.qz_id).remarks if Quiz.query.get(score.qz_id) else "Unknown Quiz" for score in scores]
+    quiz_scores = [score.score for score in scores]  # Extract score percentages
+
+    return render_template('performance_sd.html', quiz_names=quiz_names, quiz_scores=quiz_scores)
+
+
+@app.route('/summary')
+def summary():
+    # Get the highest score per subject
+    top_scores = db.session.query(
+        Subjects.name,
+        db.func.max(Score.score)
+    ).join(Quiz, Quiz.subject_id == Subjects.id) \
+     .join(Score, Score.qz_id == Quiz.id) \
+     .group_by(Subjects.name).all()
+
+    # Get the number of quiz attempts per subject
+    subject_attempts = db.session.query(
+        Subjects.name, db.func.count(Score.userId.distinct())  # Count distinct users who attempted a quiz
+    ).join(Quiz, Quiz.subject_id == Subjects.id) \
+     .join(Score, Score.qz_id == Quiz.id) \
+     .group_by(Subjects.name).all()
+
+    return render_template('summary.html', top_scores=top_scores, subject_attempts=subject_attempts)
+
+
+
+
+
+
+@app.route('/student/quiz_attempt/<int:quiz_id>', methods=['GET', 'POST'])
+def quiz_attempt(quiz_id):
+    # Fetch all questions for this quiz
+    questions = Question.query.filter_by(qz_id=quiz_id).all()
+    quiz = Quiz.query.get(quiz_id) 
+
+    # Handle case where no questions exist
+    if not questions:
+        return "No questions available for this quiz", 404
+
+    arr_attempt = [{"question": q, "answer": ""} for q in questions]
+    total_questions = len(arr_attempt)
+
+    # Initialize session storage
+    if 'quiz_answers' not in session:
+        session['quiz_answers'] = {}
+    quiz_key = str(quiz_id)
+
+    if quiz_key not in session['quiz_answers']:
+        session['quiz_answers'][quiz_key] = [""] * total_questions  # Store answers
+
+    if 'current_index' not in session:
+        session['current_index'] = 0
+    current_index = session.get('current_index', 0)
+
+    # Fetch quiz duration (in minutes) and initialize timer
+    quiz = Quiz.query.get(quiz_id)
+    time_duration = quiz.time_duration if quiz else 5  # Default to 5 minutes if not set
+
+    if 'quiz_timer' not in session:
+        session['quiz_timer'] = time.time() + (time_duration * 60)  # Store end time in seconds
+        session.modified = True
+
+    remaining_time = max(0, int(session['quiz_timer'] - time.time()))
+
+    # If time is up, calculate and save the score before redirecting
+    if remaining_time == 0:
+        session.pop('quiz_timer', None)
+
+        # Calculate the score for attempted questions
+        answered_questions = sum(1 for ans in session['quiz_answers'][quiz_key] if ans != "")
+        correct_answers_count = sum(int(answer) for answer in session['quiz_answers'][quiz_key] if answer != "")
+
+        if answered_questions > 0:
+            score_percentage = (correct_answers_count / answered_questions) * 100
+        else:
+            score_percentage = 0  # No questions answered
+
+        # Store the score in the database
+        user_id = session.get('user_id')
+        if user_id:
+            existing_score = Score.query.filter_by(userId=user_id, qz_id=quiz_id).first()
+            if existing_score:
+                existing_score.score = score_percentage
+                existing_score.attempted_at = datetime.now()
+            else:
+                new_score = Score(userId=user_id, qz_id=quiz_id, score=score_percentage)
+                db.session.add(new_score)
+            db.session.commit()
+
+        return render_template('quiz_timeout.html', score_percentage=score_percentage)
+
+    # If all questions are answered, calculate and record the final score
+    if current_index >= total_questions:
+        session.pop('current_index', None)  # Reset session index
+        session.pop('quiz_timer', None)  # Reset timer
+        correct_answers_count = sum(int(answer) for answer in session['quiz_answers'][quiz_key])
+        score_percentage = (correct_answers_count / total_questions) * 100
+
+        # Get the logged-in user's ID
+        user_id = session.get('user_id')
+
+        if user_id:
+            existing_score = Score.query.filter_by(userId=user_id, qz_id=quiz_id).first()
+            if existing_score:
+                existing_score.score = score_percentage
+                existing_score.attempted_at = datetime.now()
+            else:
+                new_score = Score(userId=user_id, qz_id=quiz_id, score=score_percentage)
+                db.session.add(new_score)
+
+            db.session.commit()
+
+        return render_template('quiz_success.html', score_percentage=score_percentage)
+
+    # Handle POST request (saving user's selected answer)
+    if request.method == 'POST':
+        selected_option = request.form.get("selected_option")
+        if selected_option:
+            is_answer_correct = 1 if arr_attempt[current_index]['question'].correct_option == selected_option else 0
+
+            session['quiz_answers'][quiz_key][current_index] = is_answer_correct
+            session['current_index'] = current_index + 1
+            session.modified = True
+
+        return redirect(url_for('quiz_attempt', quiz_id=quiz_id))
+
+    return render_template(
+        'quiz_attempt.html',
+        arr_attempt=arr_attempt,
+        current_index=current_index,
+        total_questions=total_questions,
+        quiz=quiz,
+        remaining_time=remaining_time
+    )
+
+
+
+@app.route('/student/start_quiz_prev/<int:quiz_id>')
+def start_quiz_prev(quiz_id):
+    quiz = Quiz.query.get(quiz_id)
+    questions = Question.query.filter_by(qz_id=quiz_id).all()
+    quiz_questions_numbers = Question.query.filter_by(qz_id=quiz_id).count()
+    subject_name = Subjects.query.get(quiz.subject_id).name
+    chapter_name = Chapter.query.get(quiz.chapter_id).name
+    return render_template('start_quiz_prev.html', quiz = quiz,quiz_questions_numbers=quiz_questions_numbers,questions=questions, subject_name= subject_name, chapter_name = chapter_name)
+
+
 
 @app.route('/student/view_quiz_details/<int:quiz_id>')
 def get_quiz_details(quiz_id):
@@ -355,7 +513,7 @@ def update_chapter(chapter_id):
 
         # Get the subject_id from the chapter (assuming Chapter has a subject_id field)
         subject_id = updated_chapter.subject_id
-        return redirect(url_for("chapters_list", subject_id=subject_id))
+        return redirect(url_for("admin_dashboard"))
 
     # Redirect in case of invalid method
     return redirect(url_for("chapters_list", subject_id=subject_id))
@@ -553,7 +711,7 @@ def subject_details(subject_id):
 def logout():
     session.clear()  # Clear all session data
     flash("You have been logged out.", "info")
-    return redirect(url_for('login'))
+    return redirect(url_for('login.login'))
 
 
 

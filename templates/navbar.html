@@ -8,16 +8,17 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
   <style>
     .navbar {
       background-color: #03091e;
       padding: 10px 50px;
       margin-top: 20px;
-      position: fixed;
+      position: static;
       top: 30px;
       left: 50%;
-      transform: translateX(-50%);
       z-index: 1;
       display: flex;
       align-items: center;
@@ -67,7 +68,8 @@
     }
 
     .main-content {
-      margin-top: 100px; /* Added more space for fixed navbar */
+      margin-top: 100px;
+      /* Added more space for fixed navbar */
       padding: 20px;
     }
 
@@ -80,30 +82,103 @@
       font-weight: 550;
       font-size: 30px;
     }
+
+    /* Modern Search Bar */
+    .search-form {
+      display: flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      padding: 5px 10px;
+      gap: 5px;
+    }
+
+    .search-input {
+      border: none;
+      outline: none;
+      background: none;
+      color: white;
+      padding: 5px 10px;
+      font-size: 14px;
+      width: 130px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .search-input::placeholder {
+      color: #b8b8b8;
+    }
+
+    .search-select {
+      border: none;
+      background: rgba(255, 255, 255, 0.2);
+      /* Dark background */
+      color: white;
+      padding: 5px 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+    }
+
+    /* Ensures dropdown options are visible */
+    .search-select option {
+      background: #1a1a1a;
+      /* Dark background for dropdown options */
+      color: white;
+      /* White text */
+    }
+
+
+    .search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: white;
+    }
+
+    .search-btn:hover {
+      color: #b8b8b8;
+    }
   </style>
 </head>
 
 <body>
-  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 50px; margin-top: 20px;">
+  <div
+    style="display: flex; align-items: center; justify-content: space-between; padding: 10px 50px; margin-top: 20px;">
     <h3 class="logo" style="margin-top:33px; margin-left:0px;">Quiz-Master</h3>
-    <nav class="navbar" style="background-color: #03091e; padding: 10px 20px; border-radius: 35px; display: flex; align-items: center;">
-      <div class="nav-links" style="display: flex; gap: 10px;">
+    <nav class="navbar"
+      style="background-color: #03091e; padding: 10px 20px; border-radius: 35px; display: flex; align-items: center;">
+      <div class="nav-links" style="display: flex; gap: 10px; margin-right: 20px;">
         <a href="{{ url_for('admin_dashboard') }}" class="nav-item" style="text-decoration: none;">Home</a>
         <a href="{{ url_for('summary') }}" class="nav-item" style="text-decoration: none;">Summary</a>
-        <a href="/quizzes" class="nav-item" style="text-decoration: none;">About</a>
+        <a href="{{ url_for('list_users') }}" class="nav-item" style="text-decoration: none;">Users</a>
       </div>
+
+      <!-- Search Bar -->
+      <form action="{{ url_for('admin_search') }}" method="GET" class="search-form">
+        <input type="text" name="q" class="search-input" placeholder="Search..."
+          value="{{ request.args.get('q', '') }}">
+
+        <select name="category" class="search-select">   
+          <option value="subjects">Subjects</option>
+          <option value="quizzes">Quizzes</option>
+          <option value="users">Users</option>
+        </select>
+
+        <button type="submit" class="search-btn">🔍</button>
+      </form>
+
+
     </nav>
     <a href="{{ url_for('logout') }}" style="text-decoration: none;">
       <button type="button"
-          style="padding: 10px 20px;margin-top: 35%; font-size: 16px; color: white; background-color: #193282; border: none; border-radius: 35px; cursor: pointer;">
-          Logout
+        style="padding: 10px 20px;margin-top: 35%; font-size: 16px; color: white; background-color: #193282; border: none; border-radius: 35px; cursor: pointer;">
+        Logout
       </button>
     </a>
   </div>
-
-
 </body>
-
 <div class="main-content">
-    
+
 </div>

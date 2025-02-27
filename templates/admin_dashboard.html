@@ -64,7 +64,7 @@
                     {% for chapter in item.chapters %}
                     <li
                         style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; color: white;">
-                        <span style="flex: 1; color: #000514;">{{ chapter.name }}</span>
+                        <span style="flex: 1; color: #000514;margin-left: -9px;">{{ chapter.name }}</span>
                         <form method="POST" action="{{ url_for('delete_chapter', chapter_id=chapter.id) }}">
                             <button type="submit" class="delete-button"
                                 style="background:none; border:none; margin-right: 0px; cursor: pointer;">
@@ -99,7 +99,7 @@
                     {% endfor %}
                 </ul>
                 {% else %}
-                <p>No chapters available</p>
+                <p style="margin-top: 40px;">No chapters available</p>
                 {% endif %}
             </div>
 

@@ -86,8 +86,8 @@
 
     {% include 'navbar.html' %}
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 5px; position: relative;">
-        <h1 style="margin: 0; color: #020d2c; font-weight: 600; text-align: center;">
-            Questions in Quiz
+        <h1 style="margin: 0;font-size: 30px; color: #020d2c; font-weight: 600; text-align: center;">
+            Questions in {{quiz.remarks}} Quiz
         </h1>
         <a href="{{ url_for('add_questions', subject_id=subject_id, qz_id=q_id) }}" style="position: absolute; right: 10%; top: 50%; transform: translateY(-50%);">
             <button type="button" class="add-quiz-btn" style="font-weight: 400; font-size: 15px;">

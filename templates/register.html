@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,82 +10,86 @@
 </head>
 <style>
     .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #d3defa, #b8c5f2);
-            color: #4a4f5c;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 20px;
-        }
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #d3defa, #b8c5f2);
+        color: #4a4f5c;
+        border: none;
+        border-radius: 25px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 20px;
+    }
 
-        .submit-btn:hover {
-            background: linear-gradient(135deg, #b8c5f2, #a3b2eb);
-        }
+    .submit-btn:hover {
+        background: linear-gradient(135deg, #b8c5f2, #a3b2eb);
+    }
+
+    /* Error message box */
+    .error-box {
+        background-color: #ffdddd;
+        color: #d8000c;
+        border: 1px solid #d8000c;
+        padding: 10px;
+        margin-bottom: 15px;
+        text-align: center;
+        border-radius: 5px;
+        font-weight: bold;
+    }
 </style>
+
 <body class='page_look font_family_poppins'>
-    {%include 'navbar_login.html'%}
-    <h1 style="color: rgb(2, 34, 61); font-weight: 600;font-size:45px;margin-left:14%">Supercharge your</h1>
-    <h1 style="color: rgb(2, 34, 61); font-weight: 600;font-size: 75px; margin-top: -32px;margin-left: 15%;">Exam-Prep</h1>
+    {% include 'navbar_login.html' %}
+
+    <h1 style="color: rgb(2, 34, 61); font-weight: 600; font-size: 45px; margin-left: 14%;">Supercharge your</h1>
+    <h1 style="color: rgb(2, 34, 61); font-weight: 600; font-size: 75px; margin-top: -32px; margin-left: 15%;">Exam-Prep
+    </h1>
 
     <div class="container">
         <img src="{{ url_for('static', filename='images/Student_2.png') }}" alt="Student studying" class="form-image">
         <div class="form-wrapper">
             <form action="/register" method="POST" class="form-container">
                 <h2 class="form-title">Create Account</h2>
-                
+
+                <!-- Error Message Box -->
+                {% if error %}
+                <div class="error-box">
+                    {{ error }}
+                </div>
+                {% endif %}
+
                 <div class="form-group">
                     <label for="email">E-mail</label>
                     <div class="input-container">
-                        <input
-                            type="email"
-                            id="email"
-                            name="userName"
-                            placeholder="Enter your email"
-                            required
-                        />
+                        <input type="email" id="email" name="userName" placeholder="Enter your email" required />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="password">Password</label>
                     <div class="input-container">
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter password"
-                            required
-                        />
+                        <input type="password" id="password" name="password" placeholder="Enter password" required />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="fullName">Full Name</label>
                     <div class="input-container">
-                        <input
-                            type="text"
-                            id="fullName"
-                            name="fullName"
-                            placeholder="Enter your full name"
-                            required
-                        />
+                        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required />
                     </div>
                 </div>
 
-                {% if error %}
-                <div class="alert">
-                    {{ error }}
-                </div>
-                {% endif %}
-                <p style="margin-left: 10px;color: rgb(98, 98, 98);">Already a user?
+                <p style="margin-left: 10px; color: rgb(98, 98, 98);">
+                    Already a user?
                     <a href="/login" style="color: rgb(119, 119, 246); text-decoration: none;">Log in</a>
                 </p>
+                
+
                 <button type="submit" class="submit-btn">Create Account</button>
             </form>
         </div>
     </div>
 </body>
+
+</html>

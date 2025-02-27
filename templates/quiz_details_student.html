@@ -15,7 +15,7 @@
 
 <body class="page_look font_family_poppins">
     {% include 'navbar_sd.html' %}
-    <h1 style="text-align: center; font-weight: 600; margin-top: -50px;">Quiz Details</h1>
+    <h1 style="text-align: center; font-weight: 600; margin-top: 80px;">Quiz Details</h1>
     <div class="sd-container">
         <div style="text-align: left;">
             <h2 class="sd-subtitle"><span style="font-size: 28px;"> {{quiz.remarks}} Quiz</span>  </h2>
@@ -25,7 +25,7 @@
         <h2 class="sd-subtitle">Chapter Name: <span class="highlight">{{chapter_name}} </span></h2>
         <h2 class="sd-subtitle">Number of Qs: <span class="highlight">{{quiz_questions_numbers}} </span></h2>
         <h2 class="sd-subtitle">Date: <span class="highlight">{{quiz.date_of_quiz}} </span></h2>
-        <h2 class="sd-subtitle">Duration: <span class="highlight">{{quiz.time_duration}} min</span> </h2>
+        <h2 class="sd-subtitle">Duration: <span class="highlight">{{quiz.time_duration}}min</span> </h2>
         </div>
 
         <a href="/student">

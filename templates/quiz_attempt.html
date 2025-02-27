@@ -4,10 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Attempt</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&family=Montserrat:wght@100..900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #e6eeff;
+            color: #1a1a2e;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #003048;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+
+        .question-container {
+            width: 50%;
+            max-width: fit-content;
+            min-width: 30%;
+            margin: 0 auto;
+            background-color: #bbcffb;
+            padding: 25px;
+            border-radius: 25px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        legend {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        input[type="radio"] {
+            margin-right: 10px;
+        }
+
+        label {
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #1a365d;
+            color: white;
+            border: none;
+            padding: 13px 17px;
+            border-radius: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: block;
+        }
+
+        button:hover {
+            background-color: #2c4a7c;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{quiz.remarks}} quiz</h1>
+    <h1>Question {{ current_index + 1 }} of {{ total_questions }}</h1>
+    
+    <!-- Timer Display -->
+    <h2 id="timer"></h2>
+
+    <div class="question-container">
+        <legend>{{ arr_attempt[current_index].question.question_text }}</legend>
+
+        <form method="POST" id="quizForm">
+            <div class="options-container">
+                <div class="option-item">
+                    <input type="radio" id="option1" name="selected_option" value="option1" required>
+                    <label for="option1">{{ arr_attempt[current_index].question.option1 }}</label>
+                </div>
+                
+                <div class="option-item">
+                    <input type="radio" id="option2" name="selected_option" value="option2" required>
+                    <label for="option2">{{ arr_attempt[current_index].question.option2 }}</label>
+                </div>
+                
+                <div class="option-item">
+                    <input type="radio" id="option3" name="selected_option" value="option3" required>
+                    <label for="option3">{{ arr_attempt[current_index].question.option3 }}</label>
+                </div>
+                
+                <div class="option-item">
+                    <input type="radio" id="option4" name="selected_option" value="option4" required>
+                    <label for="option4">{{ arr_attempt[current_index].question.option4 }}</label>
+                </div>
+            </div>
+
+            <button type="submit">Save and Next</button>
+        </form>
+    </div>
 
     <script>
         let timeLeft = parseInt("{{ remaining_time }}", 10) || 0;
@@ -29,42 +142,5 @@
 
         window.onload = updateTimer;
     </script>
-</head>
-<body class='page_look font_family_poppins'>
-
-    <h1 style="text-align: center; margin-top: 50px;">{{quiz.remarks}} quiz</h1>
-    <h1 style="text-align: center; margin-top: 10px;">Question {{ current_index + 1 }} of {{ total_questions }}</h1>
-    
-    <!-- Timer Display -->
-    <h2 style="text-align: center; color: rgb(0, 48, 72);" id="timer"></h2>
-
-    <div style="width: 50%; margin: auto;">
-        <legend><strong>{{ arr_attempt[current_index].question.question_text }}</strong></legend>
-
-        <form method="POST" id="quizForm">
-            <div style="margin-top: 20px;">
-                <input type="radio" id="option1" name="selected_option" value="option1" required>
-                <label for="option1">{{ arr_attempt[current_index].question.option1 }}</label>
-            </div>
-
-            <div>
-                <input type="radio" id="option2" name="selected_option" value="option2" required>
-                <label for="option2">{{ arr_attempt[current_index].question.option2 }}</label>
-            </div>
-
-            <div>
-                <input type="radio" id="option3" name="selected_option" value="option3" required>
-                <label for="option3">{{ arr_attempt[current_index].question.option3 }}</label>
-            </div>
-
-            <div>
-                <input type="radio" id="option4" name="selected_option" value="option4" required>
-                <label for="option4">{{ arr_attempt[current_index].question.option4 }}</label>
-            </div>
-
-            <button type="submit" class="save-nxt-btn" style="margin-top: 20px;">Save and Next</button>
-        </form>
-    </div>
-
 </body>
 </html>

@@ -14,10 +14,9 @@
       background-color: #03091e;
       padding: 10px 50px;
       margin-top: 20px;
-      position: fixed;
+      position: static;
       top: 30px;
       left: 50%;
-      transform: translateX(-50%);
       z-index: 1;
       display: flex;
       align-items: center;
@@ -26,6 +25,8 @@
         0 0 5px rgba(255, 255, 255, 0.1),
         0 0 20px rgba(255, 255, 255, 0.05);
       max-width: fit-content;
+      margin: 5 auto !important;
+      
     }
 
     .app-name {
@@ -84,7 +85,7 @@
 </head>
 
 <body>
-  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 50px; margin-top: 20px;">
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 50px; margin-top: 20px;margin-right: 90px;">
     <h3 class="logo" style="margin-top:33px; margin-left:0px;">Quiz-Master</h3>
     <nav class="navbar" style="background-color: #03091e; padding: 10px 20px; border-radius: 35px; display: flex; align-items: center;">
       <div class="nav-links" style="display: flex; gap: 10px;">
@@ -101,8 +102,6 @@
     </a>
   </div>
 
-  <div class="main-content">
-    <!-- Your page content will go here -->
-  </div>
+  
 </body>
 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body class="page_look font_family_poppins">
+    {%include 'navbar.html'%}
+    <div style="margin-left: 40px;">
+    <h1 style="font-weight: bold;">Search Results for "{{ query }}"</h1>
+
+    {% for category, items in results.items() %}
+        {% if items %}
+            <h3>{{ category }} found</h3>
+            <ul>
+                {% for item in items %}
+                    <li style="font-size: 22px;">
+                        {% if category == "Users" %}
+                            {{ item.fullName }} (Username: {{ item.userName }})
+                        {% elif category == "Subjects" %}
+                            <a href="{{ url_for('chapters_list', subject_id=item.id) }}">{{ item.name }}</a>
+                        {% elif category == "Chapters" %}
+                            {{ item.name }} - {{ item.description }}
+                        {% elif category == "Quizzes" %}
+                            <a href="{{url_for('quiz_questions', quiz_id=item.id)}}"> {{ item.remarks }} </a>
+                        {% elif category == "Questions" %}
+                            {{ item.question_text }}
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+</div>
+</body>
+</html>

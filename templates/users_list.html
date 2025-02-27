@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+        rel="stylesheet">
+    <style>
+        .page_look {
+            background: 
+                radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px) 0 0 / 20px 20px, /* Dots */
+                radial-gradient(circle, #edf1fa 10%, #d3defa 50%); /* Gradient */
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .font_family_poppins {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .site-footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+            color: #020d2c;
+        }
+
+        .footer-content {
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body class='page_look font_family_poppins'>
+    {% include 'navbar.html' %}
+    
+    <h1 style="margin-top: -30px; font-size: 45px; text-align: center; color: #020d2c; font-family: 'Poppins', sans-serif;">
+        Registered Users
+    </h1>
+    
+    
+
+    <div style="display: flex; justify-content: center; margin: 30px auto; max-width: 1200px;">
+        <div style="width: 90%; background-color: #90aaf0; padding: 25px 35px; border-radius: 18px; box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);">
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 1px solid #3D52A0; color: #010b25; font-weight: 500;">
+                            <th style="padding: 15px 10px; text-align: left;">User ID</th>
+                            <th style="padding: 15px 10px; text-align: left;">Username</th>
+                            <th style="padding: 15px 10px; text-align: left;">Full Name</th>
+                            <th style="padding: 15px 10px; text-align: center;">Quizzes Attempted</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr style="border-bottom: 1px solid rgba(61, 82, 160, 0.3);">
+                            <td style="padding: 12px 10px; color: #303030;">{{ user.id }}</td>
+                            <td style="padding: 12px 10px; color: #303030;">{{ user.username }}</td>
+                            <td style="padding: 12px 10px; color: #303030;">{{ user.fullname }}</td>
+                            <td style="padding: 12px 10px; color: #303030; text-align: center;">{{ user.quiz_attempts }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <h2>Search Results for "{{ search_query }}" in {{ category }}</h2>
+
+    {% if results %}
+        <ul>
+            {% for item in results %}
+                <li>
+                    {% if category == "users" %}
+                        Username: {{ item.username }}
+                    {% elif category == "subjects" %}
+                        Subject: {{ item.name }}
+                        <a href="{{ url_for('chapters_list', subject_id=item.id) }}">View Chapters</a>
+                    {% elif category == "quizzes" %}
+                        Quiz: {{ item.remarks }} (Chapter ID: {{ item.chapter_id }})
+                        <a href="{{ url_for('quiz_questions', quiz_id=item.id) }}">View Quiz</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>

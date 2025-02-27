@@ -6,9 +6,6 @@
     margin: 0;
     padding: 0;
 }
-
-
-
 .color-schemere{
     color: #3D52A0;
     color: #7091e6;
@@ -131,7 +128,7 @@
 .quiz-card {
     margin: 0;
     border: 2px solid rgb(151, 151, 151);
-    border-radius: 25px;
+    border-radius: 18px;
     padding: 20px;
 }
 
@@ -239,8 +236,8 @@
 .quiz-card {
     background-color: #03091ed8;
     margin: 0;
-    border-radius: 25px;
-    padding: 40px;
+    border-radius: 18px;
+    padding: 25px;
 
 }
 
@@ -494,8 +491,8 @@ input::placeholder {
     background: linear-gradient(180deg, #eff3ff, #c3d1f7);
     padding: 25px;
     border-radius: 25px;
-    max-width: 320px;
-    margin: 80px auto;
+    max-width: fit-content;
+    margin: 40px auto;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 1px solid #d3defa;
     text-align: center;

@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Summary</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
         rel="stylesheet">
     <style>
-        
-
         .charts-container {
             display: flex;
             justify-content: center;
-            gap: 50px; /* Space between charts */
+            gap: 50px;
+            /* Space between charts */
             padding: 20px;
-            flex-wrap: wrap; /* Ensures responsiveness */
+            flex-wrap: wrap;
+            /* Ensures responsiveness */
         }
 
         .chart-wrapper {
@@ -29,7 +31,8 @@
 
         .chart-container {
             width: 100%;
-            max-width: 500px; /* Ensures proper sizing */
+            max-width: 500px;
+            /* Ensures proper sizing */
             height: 300px;
             margin: 0 auto;
             background: white;
@@ -39,20 +42,21 @@
         }
     </style>
 </head>
+
 <body class="page_look font_family_poppins">
 
     {% include 'navbar.html' %}
 
     <div class="charts-container">
         <div class="chart-wrapper">
-            <h2>Top Scores in Each Subject</h2>
+            <h2>Subject wise Top Scores </h2>
             <div class="chart-container">
                 <canvas id="topScoresChart"></canvas>
             </div>
         </div>
 
         <div class="chart-wrapper">
-            <h2>Subject-Wise Quiz Attempts</h2>
+            <h2>Subject-Wise User Attempts</h2>
             <div class="chart-container">
                 <canvas id="subjectChart"></canvas>
             </div>
@@ -60,11 +64,11 @@
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Data for top scores
             var topSubjects = JSON.parse('{{ top_scores | map(attribute=0) | list | tojson | safe }}');
             var topMarks = JSON.parse('{{ top_scores | map(attribute=1) | list | tojson | safe }}');
-    
+
             var ctx1 = document.getElementById('topScoresChart').getContext('2d');
             new Chart(ctx1, {
                 type: 'bar',
@@ -81,20 +85,39 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y', // Make it horizontal
+                    indexAxis: 'y',
                     scales: {
-                        x: { beginAtZero: true, max: 100 }
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            ticks: { stepSize: 10 },
+                            title: {
+                                display: true,
+                                text: 'Scores',
+                                font: { size: 16 },
+                                color: '#A9A9A9'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Subjects',
+                                font: { size: 16 },
+                                color: '#A9A9A9'
+                            }
+                        }
                     },
                     plugins: {
                         legend: { display: false }
                     }
                 }
             });
-    
-            // Data for subject-wise quiz attempts
+
+
+
             var subjectNames = JSON.parse('{{ subject_attempts | map(attribute=0) | list | tojson | safe }}');
             var attemptCounts = JSON.parse('{{ subject_attempts | map(attribute=1) | list | tojson | safe }}');
-    
+
             var ctx2 = document.getElementById('subjectChart').getContext('2d');
             new Chart(ctx2, {
                 type: 'bar',
@@ -111,11 +134,25 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    indexAxis: 'y', // Make it horizontal
+                    indexAxis: 'y',
                     scales: {
-                        x: { 
+                        x: {
                             beginAtZero: true,
-                            ticks: { stepSize: 1 } // Ensures only whole numbers are displayed
+                            ticks: { stepSize: 1 },
+                            title: {
+                                display: true,
+                                text: 'Number of Users',
+                                font: { size: 16 },
+                                color: '#A9A9A9'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Subjects',
+                                font: { size: 16 },
+                                color: '#A9A9A9'
+                            }
                         }
                     },
                     plugins: {
@@ -123,9 +160,11 @@
                     }
                 }
             });
+
         });
     </script>
-    
+
 
 </body>
+
 </html>

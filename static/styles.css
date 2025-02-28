@@ -71,14 +71,11 @@
 
 .card-link {
     text-decoration: none;
-    /* Remove underline */
     color: inherit;
-    /* Inherit color from parent container (black in this case) */
 }
 
 .card-link:hover {
     color: inherit;
-    /* Keep color the same on hover */
 }
 
 
@@ -288,18 +285,13 @@
 
 
 
-
-
-
-
-
 .container {
     display: flex;
-    align-items: center; /* Vertically align items */
-    justify-content: center; /* Optional: center the content horizontally */
-    gap: 350px; /* Add space between the image and form */
+    align-items: center; 
+    justify-content: center; 
+    gap: 350px; 
     position: relative;
-    margin-top: -13.5%;
+    margin-top: -15.5%;
 }
 
 .form-container {
@@ -314,9 +306,9 @@
 }
 
 .form-image {
-    max-width: 450px; /* Adjust the image size */
+    max-width: 450px; 
     width: 100%;
-    height: auto; /* Maintain aspect ratio */
+    height: auto; 
     opacity: 0.98;
     transform: scaleX(-1);
     margin-top: 7%;
@@ -405,13 +397,13 @@ input::placeholder {
     border: 1px solid #d3defa;
 }
 .dropdown {
-    width: 30%; /* Full width */
-    max-width: 320px; /* Limit the maximum width */
+    width: 30%; 
+    max-width: 320px; 
     padding: 10px 12px;
     font-size: 16px;
     border: 1px solid #b8c5f2;
     border-radius: 10px;
-    background: linear-gradient(135deg, #edf1fa, #d3defa); /* Gradient background */
+    background: linear-gradient(135deg, #edf1fa, #d3defa); 
     color: #4a4f5c;
     font-family: 'Poppins', sans-serif;
     outline: none;
@@ -421,18 +413,18 @@ input::placeholder {
     
 }
 
-/* Hover and focus effects */
+
 .dropdown:hover, .styled-dropdown:focus {
     border-color: #8fa9e6;
     background: linear-gradient(135deg, #d3defa, #b8c5f2);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Dropdown options styling */
+
 .dropdown option {
     font-size: 16px;
     padding: 8px;
-    background: #ffffff; /* Background for dropdown options */
+    background: #ffffff;
     color: #4a4f5c;
 }
 
@@ -444,12 +436,9 @@ input::placeholder {
 }
 
 
-
-
-
 .site-footer {
-    background: linear-gradient(180deg, #b5c9f3, #8fa9e6); /* A darker gradient for the footer */
-    color: #ffffff; /* White text for contrast */
+    background: linear-gradient(180deg, #b5c9f3, #8fa9e6); 
+    color: #ffffff; 
     padding: 25px 15px;
     text-align: center;
     
@@ -457,33 +446,31 @@ input::placeholder {
     font-family: 'Poppins', sans-serif;
     width: 100%;
     bottom: 0;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0); /* A more prominent shadow */
-    margin-top: 150px; /* Increased margin above the footer */
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0); 
+    margin-top: 150px; 
 }
 
 .footer-content p {
-    margin: 8px 0; /* Increase spacing between lines */
-    font-weight: 500; /* Make text slightly bolder */
+    margin: 8px 0; 
+    font-weight: 500; 
 }
 
 .footer-content a {
-    color: #ffffff; /* Golden accent color for links */
+    color: #ffffff;
     text-decoration: none;
     font-weight: bold;
 }
 
 .footer-content a:hover {
-    color: #ffffff; /* White on hover for better contrast */
+    color: #ffffff; 
     text-decoration: underline;
 }
 
 .site-footer p:last-child {
-    margin-top: 15px; /* Separate the link more */
+    margin-top: 15px; 
     font-size: 14px;
-    color: #e6eaff; /* Slightly muted color for smaller text */
+    color: #e6eaff; 
 }
-
-
 
 
 
@@ -497,13 +484,13 @@ input::placeholder {
     border: 1px solid #d3defa;
     text-align: center;
     font-family: 'Poppins', sans-serif;
-    transition: background 0.5s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* Transition properties specified individually */
+    transition: background 0.5s ease, box-shadow 0.3s ease, border-color 0.3s ease; 
 }
 
 .sd-container:hover {
-    background: linear-gradient(0deg, #c3d1f7, #e8eeff); /* Gradient color change on hover */
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Slightly larger box-shadow */
-    border-color: #b9c9f5; /* Change border color on hover */
+    background: linear-gradient(0deg, #c3d1f7, #e8eeff); 
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); 
+    border-color: #b9c9f5; 
 }
 
 
@@ -530,8 +517,8 @@ input::placeholder {
 }
 
 .sd-subtitle .highlight {
-    font-weight: 500; /* Slightly bolder font */
-    color: #5c5c5c; /* Slightly gray color for contrast */
+    font-weight: 500; 
+    color: #5c5c5c;
 }
 
 

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        h1 {
+            color: #dfdfdf;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            margin: auto;
+            width: 50%;
+            max-width: 900px;
+            height: 450px;
+            /* Increased height */
+            background: rgb(0, 10, 30);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas {
+            height: 100% !important;
+            /* Ensures it takes full height */
+        }
+        .table-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            width: 100%;
+            margin-bottom: 10%;
+        }
+        table {
+            border-collapse: collapse;
+            width: 60%;
+            text-align: center;
+            background: rgb(0, 10, 27);
+            color: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        thead {
+            background: rgb(109, 151, 227);
+            color: rgb(22, 0, 0);
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body class='page_look font_family_poppins'>
+    {%include 'navbar_sd.html'%}
+    <h1 style="margin: auto;justify-content: center;display: flex;margin-top: 5%; margin-bottom: 20px;">Performance
+        Overview</h1>
+
+    <div class="chart-container">
+        <canvas id="performanceChart"></canvas>
+    </div>
+
+    <script>
+        // Data from Flask
+        let quizNames = JSON.parse('{{ quiz_names | tojson | safe }}');
+        let scores = JSON.parse('{{ quiz_scores | tojson | safe }}');
+
+        // Bar chart configuration
+        const ctx = document.getElementById('performanceChart').getContext('2d');
+        const performanceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: quizNames,
+                datasets: [{
+                    label: 'Score (%)',
+                    data: scores,
+                    backgroundColor: [
+                        '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+                    ],
+                    borderRadius: 6,
+                    barThickness: 50,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        grid: {
+                            color: 'rgba(256, 256, 256, 0.3)'
+                        },
+                        ticks: {
+                            stepSize: 10,
+                            font: { size: 14 },
+                            color: '#dfdfdf'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Score (%)',
+                            font: { size: 18 },
+                            color: '#dfdfdf'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: { size: 16 },
+                            color: '#dfdfdf'
+                        },
+                        grid: {
+                            display: true,
+                            color: 'rgba(256, 256, 256, 0.3)'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Quiz name',
+                            font: { size: 18 },
+                            color: '#dfdfdf'
+
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                        titleFont: { size: 16 },
+                        bodyFont: { size: 14 },
+                        padding: 12
+                    }
+                },
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutBounce'
+                }
+            }
+        });
+    </script>
+
+    <h2 style="display: flex;margin: auto;justify-content: center;margin-top: 60px;">Detailed Scores</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Quiz Name</th>
+                    <th>Score (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for quiz, score in quiz_scores_data %}
+                <tr>
+                    <td>{{ quiz }}</td>
+                    <td>{{ score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+</body>
+
+</html>

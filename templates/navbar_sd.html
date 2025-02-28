@@ -90,8 +90,8 @@
     <nav class="navbar" style="background-color: #03091e; padding: 10px 20px; border-radius: 35px; display: flex; align-items: center;">
       <div class="nav-links" style="display: flex; gap: 10px;">
         <a href="{{ url_for('student_dashboard.student_dashboard') }}" class="nav-item" style="text-decoration: none;">Home</a>
-        <a href="{{ url_for('student_performance') }}" class="nav-item" style="text-decoration: none;">Scores</a>
-        <a href="/chapters" class="nav-item" style="text-decoration: none;">About</a>
+        <a href="{{ url_for('student_scores') }}" class="nav-item" style="text-decoration: none;">Scores</a>
+        <a href="{{ url_for('student_performance') }}" class="nav-item" style="text-decoration: none;">Performance</a>
       </div>
     </nav>
     <a href="{{ url_for('logout') }}" style="text-decoration: none;">

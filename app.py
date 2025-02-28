@@ -55,8 +55,8 @@ def admin_dashboard():
 
 
 
-@app.route('/student/performance')
-def student_performance():
+@app.route('/student/scores')
+def student_scores():
     user_id = session.get('user_id')  # Get logged-in student's ID
     
     if not user_id:
@@ -68,8 +68,53 @@ def student_performance():
     # Fetch quiz names using qz_id
     quiz_names = [Quiz.query.get(score.qz_id).remarks if Quiz.query.get(score.qz_id) else "Unknown Quiz" for score in scores]
     quiz_scores = [score.score for score in scores]  # Extract score percentages
+    
+    # Combine quiz names and scores into tuples
+    quiz_scores_data = list(zip(quiz_names, quiz_scores))
 
-    return render_template('performance_sd.html', quiz_names=quiz_names, quiz_scores=quiz_scores)
+    return render_template('scores_sd.html', quiz_names=quiz_names, quiz_scores=quiz_scores, quiz_scores_data=quiz_scores_data)
+
+
+
+@app.route('/student/performance')
+def student_performance():
+    user_id = session.get('user_id')  # Get logged-in student's ID
+    
+    if not user_id:
+        return redirect(url_for('login'))  # Redirect to login if user not found
+
+    # Fetch subjects and count quizzes attempted per subject
+    subject_attempts = (
+        db.session.query(Subjects.name, db.func.count(Score.qz_id))
+        .join(Quiz, Quiz.id == Score.qz_id)
+        .join(Subjects, Subjects.id == Quiz.subject_id)
+        .filter(Score.userId == user_id)
+        .group_by(Subjects.name)
+        .all()
+    )
+
+    # Fetch total quizzes per subject (not just attempted)
+    total_quizzes = (
+        db.session.query(Subjects.name, db.func.count(Quiz.id))
+        .join(Subjects, Subjects.id == Quiz.subject_id)
+        .group_by(Subjects.name)
+        .all()
+    )
+
+    # Convert query results to dictionaries for easier lookup
+    subject_attempt_dict = dict(subject_attempts)
+    total_quiz_dict = dict(total_quizzes)
+
+    subjects = list(total_quiz_dict.keys())  # Get all subjects
+    attempts = [subject_attempt_dict.get(subj, 0) for subj in subjects]  # Attempted quizzes (default 0 if not attempted)
+    total = [total_quiz_dict[subj] for subj in subjects]  # Total quizzes
+
+    return render_template('performance_sd.html', subjects=subjects, attempts=attempts, total=total)
+
+
+
+
+
 
 
 @app.route('/summary')

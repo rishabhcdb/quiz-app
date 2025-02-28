@@ -28,7 +28,7 @@ Quiz Master is a multi-user web application designed for exam preparation across
 
 - **Backend:** Flask (Python)
 - **Database:** SQLite (using SQLAlchemy ORM)
-- **Frontend:** Jinja2, HTML, CSS
+- **Frontend:** Jinja2, HTML, CSS, Javascript
 
 
 ## Project Structure
@@ -46,31 +46,6 @@ QuizMaster/
 │-- README.md            # Project documentation
 ```
 
-## Installation & Setup
-
-1. **Clone the Repository:**
-   ```bash
-   git clone <repository-url>
-   cd QuizMaster
-   ```
-2. **Create and Activate a Virtual Environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows, use 'venv\Scripts\activate'
-   ```
-3. **Install Dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. **Initialize the Database:**
-   ```bash
-   python models/create_db.py
-   ```
-5. **Run the Application:**
-   ```bash
-   python app.py
-   ```
-6. **Access the Web App:** Open `http://127.0.0.1:5000` in your browser.
 
 ## Usage
 
@@ -82,8 +57,6 @@ QuizMaster/
 This project is for educational purposes and follows an open-source license.
 
 ---
-
-Let me know if you need any modifications or enhancements! 🚀
 
 
 

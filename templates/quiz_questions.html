@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Questions</title>
-    <link rel = "stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    
-   <style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -38,7 +38,7 @@
             padding: 35px;
             margin-bottom: 15px;
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            
+
         }
 
         .question-card h4 {
@@ -60,12 +60,12 @@
         .question-card li {
             margin-bottom: 5px;
             color: rgb(173, 173, 173);
-           
+
         }
 
         .add-quiz-btn {
             background-color: #2f4e9d;
-            
+
             color: white;
             border: none;
             padding: 10px 15px;
@@ -79,7 +79,7 @@
         .add-quiz-btn:hover {
             background-color: #1a53c1;
         }
-    </style>  
+    </style>
 </head>
 
 <body class="page_look">
@@ -89,46 +89,50 @@
         <h1 style="margin: 0;font-size: 30px; color: #020d2c; font-weight: 600; text-align: center;">
             Questions in {{quiz.remarks}} Quiz
         </h1>
-        <a href="{{ url_for('add_questions', subject_id=subject_id, qz_id=q_id) }}" style="position: absolute; right: 10%; top: 50%; transform: translateY(-50%);">
+        <a href="{{ url_for('add_questions', subject_id=subject_id, qz_id=q_id) }}"
+            style="position: absolute; right: 10%; top: 50%; transform: translateY(-50%);">
             <button type="button" class="add-quiz-btn" style="font-weight: 400; font-size: 15px;">
                 + Question
             </button>
         </a>
     </div>
-    
-    
+
+
     {% if questions %}
     <ul class="question-list">
         {% for question in questions %}
-<li class="question-card">
-    <!-- Form for deleting the question -->
-    
-    <h4>Q. {{ question.question_text }}</h4>
-    <ul>
-        <li>{{ question.option1 }}</li>
-        <li>{{ question.option2 }}</li>
-        <li>{{ question.option3 }}</li>
-        <li>{{ question.option4 }}</li>
-    </ul>
-    <p>Correct Answer: {{ question.correct_option }}</p>
+        <li class="question-card">
+            <!-- Form for deleting the question -->
 
-    
-    <a href="{{ url_for('redirect_edit_question', quiz_id=q_id, ques_id=question.ques_id) }}">
-        <button type="button" style="background-color: #c0c0c0; margin-top: 10px; color: rgb(0, 0, 0); border: none; font-size: 15px; padding: 5px 10px; border-radius: 35px; cursor: pointer;">
-            Edit Question
-        </button>
-    </a>
-    
-    
-</li>
-{% endfor %}
+            <h4>Q. {{ question.question_text }}</h4>
+            <ul>
+                <li>{{ question.option1 }}</li>
+                <li>{{ question.option2 }}</li>
+                <li>{{ question.option3 }}</li>
+                <li>{{ question.option4 }}</li>
+            </ul>
+            <p>Correct Answer: {{ question.correct_option }}</p>
+
+
+            <a href="{{ url_for('redirect_edit_question', quiz_id=q_id, ques_id=question.ques_id) }}">
+                <button type="button"
+                    style="background-color: #c0c0c0; margin-top: 10px; color: rgb(0, 0, 0); border: none; font-size: 15px; padding: 5px 10px; border-radius: 35px; cursor: pointer;">
+                    Edit Question
+                </button>
+            </a>
+
+
+        </li>
+        {% endfor %}
 
     </ul>
     {% else %}
     <p style="color: #1a233a; text-align: center; margin-top: 25px;">No questions available for this quiz.</p>
     {% endif %}
 
-    
+    {%if questions%}
+    {%include 'footer.html'%}
+    {%endif%}
 </body>
 
 </html>

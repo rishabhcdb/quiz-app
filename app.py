@@ -334,16 +334,14 @@ def create_quiz(subject_id, chapter_id):
 
 @app.route('/admin/subjects/<int:subject_id>/chapters/<int:chapter_id>/quiz/<int:quiz_id>/delete', methods=['POST'])
 def delete_quiz(subject_id, chapter_id, quiz_id):
-    # Find the quiz by ID
     quiz = Quiz.query.get(quiz_id)
     if quiz:
-        # Find all questions related to the quiz
         questions = Question.query.filter_by(qz_id=quiz_id).all()
         if questions:
             for question in questions:
-                db.session.delete(question)  # Delete each question
+                db.session.delete(question) 
+                Score.query.filter_by(qz_id=quiz.id).delete()
 
-        # Delete the quiz itself
         db.session.delete(quiz)
         db.session.commit()
         return redirect(url_for('chapters_list', subject_id=subject_id))
@@ -353,7 +351,6 @@ def delete_quiz(subject_id, chapter_id, quiz_id):
 
 @app.route('/admin/subjects/<int:subject_id>/details/<int:qz_id>/delete_question/<int:ques_id>', methods=['POST'])
 def delete_question(subject_id, qz_id, ques_id):
-    # Fetch the question by its ID
     question = Question.query.get(ques_id)
     
     if question:
@@ -568,18 +565,20 @@ def delete_subject(subject_id):
     # Find the subject by ID
     subject = Subjects.query.get(subject_id)
     if subject:
-        # Get all quizzes associated with the subject
+        
         quizzes = Quiz.query.filter_by(subject_id=subject_id).all()
 
-        # Delete questions associated with these quizzes
+        
         for quiz in quizzes:
             Question.query.filter_by(qz_id=quiz.id).delete()
+            Score.query.filter_by(qz_id=quiz.id).delete()
 
         # Delete quizzes associated with the subject
         Quiz.query.filter_by(subject_id=subject_id).delete()
 
         # Delete chapters associated with the subject
         Chapter.query.filter_by(subject_id=subject_id).delete()
+
 
         # Delete the subject itself
         db.session.delete(subject)
@@ -766,6 +765,7 @@ def delete_chapter(chapter_id):
             for quiz in del_quizzes:
                 # Delete all questions associated with the quiz
                 Question.query.filter_by(qz_id=quiz.id).delete()
+                Score.query.filter_by(qz_id=quiz.id).delete()
                 db.session.delete(quiz)
 
         # Delete the chapter

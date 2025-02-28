@@ -37,6 +37,7 @@
             height: 100% !important;
             /* Ensures it takes full height */
         }
+
         .table-container {
             display: flex;
             justify-content: center;
@@ -44,20 +45,26 @@
             width: 100%;
             margin-bottom: 10%;
         }
+
         table {
             border-collapse: collapse;
-            width: 60%;
+            width: 40%;
+            /* Reduced width */
             text-align: center;
             background: rgb(0, 10, 27);
             color: white;
             border-radius: 10px;
             overflow: hidden;
         }
+
+    
         thead {
             background: rgb(109, 151, 227);
             color: rgb(22, 0, 0);
         }
-        th, td {
+
+        th,
+        td {
             padding: 10px;
             border: 1px solid #ccc;
         }
@@ -174,7 +181,7 @@
     </div>
 
 
-
+    {%include 'footer.html'%}
 </body>
 
 </html>

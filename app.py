@@ -4,18 +4,15 @@ from models.models import db, Users, Subjects, Chapter, Quiz, Question, Score # 
 from functools import wraps
 from werkzeug.security import generate_password_hash
 import time
-
-
 from controllers.login import login_bp
 from controllers.student_dashboard import student_dashboard_bp
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz_master.db?check_same_thread=False'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///quiz_master.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'secretch'  # Add this line
+app.secret_key = 'secretch'  
 
-db.init_app(app)  # Initialize the database with the app
+db.init_app(app)  
 
 app.register_blueprint(login_bp)
 app.register_blueprint(student_dashboard_bp)
@@ -816,17 +813,17 @@ def logout():
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()  # Creates the database tables
+        db.create_all()  
         print("Database initialized!")
 
 
-        # Check if the admin user exists
+        
         admin = Users.query.filter_by(userName='admin').first()
         if not admin:
-            # Create the admin user
+            
             admin = Users(
                 userName='admin',
-                passWord='iamadmin',  # Use a hashed password in production
+                passWord='iamadmin',  
                 fullName='Quiz Master',
                 isAdmin=True
             )

@@ -6,14 +6,7 @@
     margin: 0;
     padding: 0;
 }
-.color-schemere{
-    color: #3D52A0;
-    color: #7091e6;
-    color: #8697c4;
-    color: #adbbda;
-    color: #ede8f5;
 
-}
 .font_family_poppins{
     font-family: 'Poppins', sans-serif;
     
@@ -278,11 +271,6 @@
     background-color: #cc0000;
 }
 
-.card-link {
-    color: black;
-    text-decoration: none;
-}
-
 
 
 .container {
@@ -426,13 +414,6 @@ input::placeholder {
     padding: 8px;
     background: #ffffff;
     color: #4a4f5c;
-}
-
-@media (max-width: 480px) {
-    .form-container {
-        margin: 40px auto;
-        padding: 20px;
-    }
 }
 
 

@@ -50,13 +50,23 @@ QuizMaster/
 ## Usage
 
 - **Admin Dashboard:** Manage users, subjects, quizzes, and view reports.
+  **NOTE:** 
+  Admin is a superuser, and is created when the database is initialised, hence there is no need for Admin signup.
+  The admin can directly login with the following credentials (hardcoded in app.py while initialising)
+  Email: admin
+  Password: iamadmin
+
 - **User Dashboard:** Attempt quizzes, view scores, and track progress.
+    Every user needs to sign-up and login seperately
 
-## License
+    **Running the app**
+    Run the app.py file, database will automatically be created (if doesn't already exists)
+    Follow the http://127.0.0.1:5000 link that appears in the terminal
 
-This project is for educational purposes and follows an open-source license.
+    **Project Demo Video:**
+    https://drive.google.com/file/d/1nnPa40-VusR5BdQ0YDRcLxt3LsSCuWZ5/view?usp=sharing
 
----
+    Enjoy!!!
 
 
 

@@ -73,7 +73,14 @@
                 scales: {
                     y: {
                         beginAtZero: true,
-                        ticks: { color: '#dfdfdf', font: { size: 14 } },
+                        ticks: {
+                            color: '#dfdfdf',
+                            font: { size: 14 },
+                            stepSize: 1, // Ensures only whole numbers are shown
+                            callback: function(value) {
+                                return Number.isInteger(value) ? value : null;
+                            }
+                        },
                         grid: { color: 'rgba(256, 256, 256, 0.3)' },
                         title: {
                             display: true,
@@ -84,7 +91,6 @@
                     },
                     x: {
                         categoryPercentage: 0.5,
-                        
                         ticks: { color: '#dfdfdf', font: { size: 16 } },
                         grid: { color: 'rgba(256, 256, 256, 0.3)' },
                         title: {
@@ -94,12 +100,10 @@
                             color: '#dfdfdf'
                         }
                     }
-                },
-                
+                }
             }
         });
     </script>
-    
     {%include 'footer.html'%}
 </body>
 </html>
